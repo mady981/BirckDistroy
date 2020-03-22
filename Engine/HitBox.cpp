@@ -33,8 +33,8 @@ bool HitBox::isOverlappingWith( const Vector& other ) const
 		&& bottem > other.y && top < other.y;
 }
 
-HitBox HitBox::fromCenter( const Vector& center,float width,float height )
+HitBox HitBox::fromCenter( const Vector& center,float half_width,float half_height )
 {
-	const Vector half( width * 0.5f,height * 0.5f );
+	const Vector half( half_width,half_height  );
 	return HitBox( center - half,center + half );
 }

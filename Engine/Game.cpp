@@ -22,9 +22,11 @@
 #include "Game.h"
 
 Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd )
+    :
+    wnd( wnd ),
+    gfx( wnd ),
+    wall( 0.0f,gfx.ScreenWidth,0.0f,gfx.ScreenHeight ),
+    ball( { 200,200 },{ 5,5 } )
 {
 }
 
@@ -38,8 +40,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    ball.MoveBy();
+    ball.isCollidingWith( wall );
 }
 
 void Game::ComposeFrame()
 {
+    ball.Draw( gfx );
 }
