@@ -21,6 +21,16 @@ HitBox::HitBox( const Vector& topleft,float width,float height )
 {
 }
 
+HitBox HitBox::getexpand( float val )
+{
+	return HitBox( left - val,right + val,top - val,bottem + val );
+}
+
+HitBox& HitBox::expand( float val )
+{
+	return *this = getexpand( val );
+}
+
 bool HitBox::isOverlappingWith( const HitBox& other ) const
 {
 	return right > other.left && left < other.right

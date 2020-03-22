@@ -26,8 +26,9 @@ Game::Game( MainWindow& wnd )
     wnd( wnd ),
     gfx( wnd ),
     wall( 0.0f,gfx.ScreenWidth,0.0f,gfx.ScreenHeight ),
-    ball( { 200,200 },{ 5,5 } )
+    ball( { gfx.ScreenWidth / 2,gfx.ScreenHeight - 100 },{ 2,-5 } )
 {
+    bf.Init();
 }
 
 void Game::Go()
@@ -42,9 +43,14 @@ void Game::UpdateModel()
 {
     ball.MoveBy();
     ball.isCollidingWith( wall );
+    if ( bf.isCollidingWith( ball.getHitBox() ) )
+    {
+        ball.ReboundY();
+    }
 }
 
 void Game::ComposeFrame()
 {
     ball.Draw( gfx );
+    bf.Draw( gfx );
 }

@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Vector.h"
 #include "Ball.h"
+#include "Bricks.h"
 
 class Game
 {
@@ -41,4 +42,5 @@ private:
 	Graphics gfx;
     HitBox wall;
     Ball ball;
+    BrickFrield bf;
 };
