@@ -335,6 +335,38 @@ void Graphics::DrawRect( int x0 , int y0 , int x1 , int y1 , Color c )
 	}
 }
 
+void Graphics::DrawCircle( const Vector& center,int radius,Color c )
+{
+	for ( int y = int( center.y ) - radius; y <= center.y + radius; ++y )
+	{
+		for ( int x = int( center.x ) - radius; x <= center.x + radius; ++x )
+		{
+			Vector len = { float( x ),float( y ) };
+			len = center - len;
+			if ( int( len.getLength() ) == radius )
+			{
+				PutPixel( x,y,c );
+			}
+		}
+	}
+}
+
+void Graphics::DrawBall( const Vector& center,int radius,Color c )
+{
+	for ( int y = int( center.y ) - radius + 1; y < center.y + radius; ++y )
+	{
+		for ( int x = int( center.x ) - radius + 1; x < center.x + radius; ++x )
+		{
+			Vector len = { float( x ),float( y ) };
+			len = center - len;
+			if ( int( len.getLengthSq() ) <= radius * radius )
+			{
+				PutPixel( x,y,c );
+			}
+		}
+	}
+}
+
 //////////////////////////////////////////////////
 //           Graphics Exception
 Graphics::Exception::Exception( HRESULT hr,const std::wstring& note,const wchar_t* file,unsigned int line )

@@ -24,6 +24,8 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Colors.h"
+#include "HitBox.h"
+#include "Vector.h"
 
 class Graphics
 {
@@ -62,6 +64,12 @@ public:
 	{
 		DrawRect( x0,y0,x0 + height,y0 + width, c );
 	}
+	void DrawRectHB( const HitBox& hb,Color c )
+	{
+		DrawRect( int( hb.left ),int( hb.top ),int( hb.right ),int( hb.bottem ),c );
+	}
+	void DrawCircle( const Vector& center,int radius,Color c );
+	void DrawBall( const Vector& center,int radius,Color c );
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
