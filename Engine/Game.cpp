@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
     wnd( wnd ),
     gfx( wnd ),
     wall( 0.0f,gfx.ScreenWidth,0.0f,gfx.ScreenHeight ),
-    ball( { gfx.ScreenWidth / 2,gfx.ScreenHeight - 100 },{ 2,-5 } )
+    ball( { gfx.ScreenWidth / 2,gfx.ScreenHeight - 100 },{ 2,-5 } ),
+    pad( { gfx.ScreenWidth / 2,gfx.ScreenHeight - 20 } )
 {
     bf.Init();
 }
@@ -41,11 +42,34 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    ball.MoveBy();
-    ball.isCollidingWith( wall );
-    if ( bf.isCollidingWith( ball.getHitBox() ) )
+    if ( !gameOver )
     {
-        ball.ReboundY();
+        if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
+        {
+            dir = { -1,0 };
+        }
+        else if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
+        {
+            dir = { 1,0 };
+        }
+        else
+        {
+            dir = { 0,0 };
+        }
+        if ( !( pad.isCollidingWall( wall.left,-1 ) && dir.x == -1 || pad.isCollidingWall( wall.right,1 ) && dir.x == 1 ) )
+        {
+            pad.Move( dir );
+        }
+        ball.MoveBy();
+        if ( ball.getHitBox().bottem >= wall.bottem )
+        {
+            gameOver = true;
+        }
+        ball.isCollidingWith( wall );
+        if ( bf.isCollidingWith( ball.getHitBox() ) || pad.isCollidingWith( ball.getHitBox() ) )
+        {
+            ball.ReboundY();
+        }
     }
 }
 
@@ -53,4 +77,5 @@ void Game::ComposeFrame()
 {
     ball.Draw( gfx );
     bf.Draw( gfx );
+    pad.Draw( gfx );
 }

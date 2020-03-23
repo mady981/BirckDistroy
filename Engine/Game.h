@@ -26,6 +26,7 @@
 #include "Vector.h"
 #include "Ball.h"
 #include "Bricks.h"
+#include "Paddel.h"
 
 class Game
 {
@@ -43,4 +44,7 @@ private:
     HitBox wall;
     Ball ball;
     BrickFrield bf;
+    Paddel pad;
+    Vector dir = { 0,0 };
+    bool gameOver = false;
 };

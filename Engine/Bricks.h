@@ -21,7 +21,7 @@ public:
 	void Draw( Graphics& gfx ) const;
 	bool isCollidingWith( const HitBox& ball_hb );
 private:
-	static constexpr int BrickWidth = 100;
+	static constexpr int BrickWidth = 50;
 	static constexpr int BrickHeight = 30;
 	static constexpr int Rows = 4;
 	static constexpr int Collums = Graphics::ScreenWidth / BrickWidth - 2;
